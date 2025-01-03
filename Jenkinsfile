@@ -54,7 +54,8 @@ pipeline {
         stage('Configuração do Yocto') {
             steps {
                 script {
-                    sh 'source /poky/oe-init-build-env'
+                    // Modifiquei para rodar o bash explicitamente
+                    sh 'bash -c "source /poky/oe-init-build-env"'
 
                     sh '''
                     echo 'MACHINE = "orange-pi-pc-plus"' >> /poky/build/conf/local.conf
