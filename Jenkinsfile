@@ -24,7 +24,10 @@ pipeline {
         stage('Preparação do Ambiente') {
             steps {
                 script {
-                    
+                    // Configura o fuso horário antes de executar qualquer instalação ou configuração
+                    sh 'echo "Etc/UTC" > /etc/timezone'
+                    sh 'dpkg-reconfigure --frontend noninteractive tzdata'  // Configuração do fuso horário sem interação
+
                     sh 'apt-get update'
                     sh '''
                     apt-get install -y \
@@ -50,7 +53,6 @@ pipeline {
         stage('Configuração do Yocto') {
             steps {
                 script {
-                    
                     sh 'source /poky/oe-init-build-env'
 
                     sh '''
