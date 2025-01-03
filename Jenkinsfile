@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Clona o repositório do Git
-                    git url: "$REPO_URL", branch: 'main', credentialsId: 'git-credentials-id' 
+                    git url: "$REPO_URL", branch: 'master', credentialsId: 'git-credentials-id' 
                 }
             }
         }
