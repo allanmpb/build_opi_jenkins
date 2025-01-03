@@ -90,9 +90,14 @@ pipeline {
         }
     }
 
-    // post {
-    //     always {
-    //         cleanWs()
-    //     }
-    // }
+    post {
+        always {
+            // Comentado para não limpar a workspace, mesmo em caso de falha
+            // cleanWs()
+        }
+
+        failure {
+            echo 'Falha no processo! Workspace não será limpa.'
+        }
+    }
 }
