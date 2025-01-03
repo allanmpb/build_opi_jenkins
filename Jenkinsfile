@@ -24,11 +24,12 @@ pipeline {
         stage('Preparação do Ambiente') {
             steps {
                 script {
-                    // Configura o fuso horário antes de executar qualquer instalação ou configuração
-                    sh 'echo "Etc/UTC" > /etc/timezone'
-                    sh 'dpkg-reconfigure --frontend noninteractive tzdata'  // Configuração do fuso horário sem interação
-
+                    // Instala o pacote tzdata antes de configurar o fuso horário
                     sh 'apt-get update'
+                    sh 'apt-get install -y tzdata'  // Instala o tzdata para configurar o fuso horário
+                    sh 'echo "Etc/UTC" > /etc/timezone'
+                    sh 'dpkg-reconfigure --frontend noninteractive tzdata'  // Configura o fuso horário sem interação
+
                     sh '''
                     apt-get install -y \
                         gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential \
