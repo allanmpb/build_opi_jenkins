@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'ubuntu:20.04'  
-            args '-v /var/run/docker.sock:/var/run/docker.sock' 
+            args '-v /var/run/docker.sock:/var/run/docker.sock -v /path/to/persistent/volume:/poky' // Montagem de volume persistente
         }
     }
 
@@ -92,12 +92,11 @@ pipeline {
 
     post {
         always {
-            // Comentado para não limpar a workspace, mesmo em caso de falha
-            // cleanWs()
+            echo 'O build terminou. O container NÃO será removido.'
         }
 
         failure {
-            echo 'Falha no processo! Workspace não será limpa.'
+            echo 'Falha no processo! O container não será removido.'
         }
     }
 }
